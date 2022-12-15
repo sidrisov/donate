@@ -12,13 +12,10 @@ const provider = new providers.Web3Provider(ganacheProvider);
  */
 async function donate(privateKey, charities) {
     const wallet = new Wallet(privateKey, provider);
-    let nonce = await wallet.getTransactionCount();
-
     const promises = charities.map(async charity => {
         return wallet.sendTransaction({ 
             value: utils.parseEther("1"),
             to: charity, 
-            nonce: nonce++,
             gasLimit: 21000,
             gasPrice: utils.parseUnits("5", "gwei")
         })
